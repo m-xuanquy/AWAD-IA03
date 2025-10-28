@@ -37,7 +37,8 @@ function RegisterForm() {
 
   const registerMutation = useMutation({
     mutationFn: async (payload: z.infer<typeof formSchema>) => {
-      const res = await axios.post("http://localhost:3000/user/register", payload)
+      const backendUrl = (globalThis as any).process?.env?.BACKEND_URL || ""
+      const res = await axios.post(`${backendUrl}/user/register`, payload)
       return res.data
     },
     onSuccess: (data) => {
